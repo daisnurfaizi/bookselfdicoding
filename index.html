@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>BookselfApp</title>
+</head>
+<body>
+    <header>
+        <nav class="">
+            <li>
+                <a class="nav-bar" href="#">Book Shelf App</a>
+            </li>
+        </nav>
+    </header>
+    <main>
+        <div>
+            <form class="form">
+                    <label><h3>Masukkan Buku Baru</h3></label>
+                    <div class="form-control">
+                        <input type="text" id="bookname" name="judul" placeholder="Masukan judul Buku" required>
+                    </div>
+                    <div class="form-control">
+                        <input type="text" id="author" name="penulis" placeholder="Nama Penulis" required>
+                    </div>
+                    <div class="form-control">
+                        <input type="number" id="year" name="tahun" placeholder="tahun" required>
+                    </div>
+                    <div class="checkbox">
+                        <label for="inputBookIsComplete">Selesai dibaca</label>
+                        <input id="isComplete" type="checkbox">
+                    </div>
+                    <button id="submit">Submit</button>              
+            </form>
+        </div>
+        <!-- list buku -->
+        <section>
+            <div id="incompleteBookshelfList" class="bookshelf-list">
+                <h2>Belum Selesai Dibaca</h2>
+                <div id="listbuku" class="book-list">
+                        <div class="book-card">
+                            <h3 class="bookTitle">Judul Buku</h3>
+                            <p class="bookAuthor">Penulis</p>
+                            <p class="bookYear">Tahun</p>
+                            <div class="action">
+                                <button class="green">Selesai dibaca</button>
+                                <button class="red">Hapus Buku</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Selesai Dibaca</h2>
+            
+
+        </section>
+        
+    </main>
+    <footer>
+
+    </footer>
+    <script src="js/bookselft.js"></script>
+</body>
+</html>
