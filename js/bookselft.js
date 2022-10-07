@@ -34,6 +34,7 @@ const saveToLocalStorage = (book) => {
     }
     books.push(book);
     localStorage.setItem('books', JSON.stringify(books));
+    alertSuccess();
 }
 
 
@@ -54,7 +55,7 @@ const showBook = () => {
         });
     }
 }
-const isReaded = (book,list) => {
+const isReaded = (book,list) => {    
     const row = document.createElement('div');
                 row.innerHTML = `
                 <h3 class="bookTitle">Judul Buku ${book.title}</h3>
@@ -70,6 +71,7 @@ const isReaded = (book,list) => {
 }
 
 const isNotReaded = (book,list) => {
+   
     const row = document.createElement('div');
                 row.innerHTML = `
                 <h3 class="bookTitle">Judul Buku ${book.title}</h3>
@@ -88,11 +90,15 @@ const removeBook = (id) => {
     const books = JSON.parse(localStorage.getItem('books'));
     books.forEach((book, index) => {
         if (book.id === id) {
-            books.splice(index, 1);
+            // confirm delete
+            if (confirm('Apakah anda yakin ingin menghapus buku ini?')) {
+                books.splice(index, 1);
+            }
         }
     });
     localStorage.setItem('books', JSON.stringify(books));
     showBook();
+    alertDelete();
 }
 
 const readBook = (id) => {
@@ -117,3 +123,44 @@ const unReadBook = (id) => {
 }
 
 
+const search = document.getElementById('search');
+search.addEventListener('keyup', function (e) {
+    const list = document.getElementById('listbukubelumdibaca');
+    const listbaca = document.getElementById('listbukubelumselesaidibaca');
+    const books = JSON.parse(localStorage.getItem('books'));
+    const searchValue = e.target.value.toLowerCase();
+    // filter by title and author and year 
+    const filteredBooks = books.filter((book) => {
+        return book.title.toLowerCase().includes(searchValue) || book.author.toLowerCase().includes(searchValue) || book.year.toLowerCase().includes(searchValue);
+    });
+    list.innerHTML = '';
+    listbaca.innerHTML = '';
+    filteredBooks.map((book) => {
+        if(book.isComplete){
+            isReaded(book,listbaca);
+        }else{
+            isNotReaded(book,list);
+        }
+    });
+});
+
+const alertSuccess = () => {
+    const alert = document.getElementById('alert');
+    const message = document.getElementById('message');
+    alert.classList.add('alert-bg-success');
+    message.textContent = 'Buku berhasil ditambahkan';
+    setTimeout(() => {
+        alert.classList.remove('alert-bg-success');
+        message.textContent = '';
+    }, 3000);
+}
+const alertDelete = () => {
+    const alert = document.getElementById('alert');
+    const message = document.getElementById('message');
+    alert.classList.add('alert-bg-delete');
+    message.textContent = 'Buku berhasil dihapus';
+    setTimeout(() => {
+        alert.classList.remove('alert-bg-delete');
+        message.textContent = '';
+    }, 3000);
+}

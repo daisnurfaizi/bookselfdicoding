@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="">
+        <nav class="navheader">
             <li>
                 <a class="nav-bar" href="#">Book Shelf App</a>
             </li>
@@ -17,6 +17,11 @@
     </header>
     <main>
         <div>
+            <div>
+                <div id="alert" class="alert ">
+                    <p id="message"></p>
+                </div>
+            </div>
             <form class="form">
                     <label><h3>Masukkan Buku Baru</h3></label>
                     <div class="form-control">
@@ -37,15 +42,21 @@
         </div>
         <!-- list buku -->
         <section>
+            <!-- search -->
+            <div class="search">
+                <input type="text" id="search" placeholder="Search">
+            </div>
+        </section>
+        <section>
             <div id="incompleteBookshelfList" class="bookshelf-list">
-                <h2>Belum Selesai Dibaca</h2>
+                <h2>Belum Selesai Dibaca <span id="countbooknotread"></span></h2>
                 <div id="listbukubelumdibaca" class="book-list">
                 </div>
             </div>
         </section>
         <section>
             <div id="" class="bookshelf-list">
-                <h2>Selesai Dibaca</h2>
+                <h2>Selesai Dibaca <span id="countbook"></span></h2>
                 <div id="listbukubelumselesaidibaca" class="book-list">
                 </div>
             </div>
