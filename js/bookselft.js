@@ -39,24 +39,49 @@ const saveToLocalStorage = (book) => {
 
 // show book
 const showBook = () => {
+    const list = document.getElementById('listbukubelumdibaca');
+    const listbaca = document.getElementById('listbukubelumselesaidibaca');
     const books = JSON.parse(localStorage.getItem('books'));
-    books.forEach((book) => {
-        const list = document.getElementById('listbuku');
-        const row = document.createElement('div');
-        row.innerHTML = `
-            <h3 class="bookTitle">Judul Buku ${book.title}</h3>
-                <p class="bookAuthor">Penulis ${book.author}</p>
-                <p class="bookYear">Tahun ${book.year}</p>
-                <div class="action">
-                <button class="green">Selesai dibaca</button>
-                <button class="red" onclick="removeBook(${book.id})">Hapus buku</button>
-            </div>
-            
-        `;
-        list.appendChild(row);
-        // add class
-        row.classList.add('book-card');
-    });
+    if(books!=null){
+        list.innerHTML = '';
+        listbaca.innerHTML = '';
+        books.map((book) => {
+            if(book.isComplete){
+                isReaded(book,listbaca);
+            }else{
+                isNotReaded(book,list);
+            }
+        });
+    }
+}
+const isReaded = (book,list) => {
+    const row = document.createElement('div');
+                row.innerHTML = `
+                <h3 class="bookTitle">Judul Buku ${book.title}</h3>
+                    <p class="bookAuthor">Penulis ${book.author}</p>
+                    <p class="bookYear">Tahun ${book.year}</p>
+                    <div class="action">
+                    <button class="green" onclick="unReadBook(${book.id})">Belum Selesai Dibaca</button>
+                    <button class="red" onclick="removeBook(${book.id})">Hapus buku</button>
+                </div>
+            `;
+            list.appendChild(row);
+           return  row.classList.add('book-card');
+}
+
+const isNotReaded = (book,list) => {
+    const row = document.createElement('div');
+                row.innerHTML = `
+                <h3 class="bookTitle">Judul Buku ${book.title}</h3>
+                    <p class="bookAuthor">Penulis ${book.author}</p>
+                    <p class="bookYear">Tahun ${book.year}</p>
+                    <div class="action">
+                    <button class="green" onclick="readBook(${book.id})">Selesai Dibaca</button>
+                    <button class="red" onclick="removeBook(${book.id})">Hapus buku</button>
+                </div>
+            `;
+            list.appendChild(row);
+            return row.classList.add('book-card');
 }
 
 const removeBook = (id) => {
@@ -69,4 +94,26 @@ const removeBook = (id) => {
     localStorage.setItem('books', JSON.stringify(books));
     showBook();
 }
+
+const readBook = (id) => {
+    const books = JSON.parse(localStorage.getItem('books'));
+    books.forEach((book, index) => {
+        if (book.id === id) {
+            books[index].isComplete = true;
+        }
+    });
+    localStorage.setItem('books', JSON.stringify(books));
+    showBook();
+}
+const unReadBook = (id) => {
+    const books = JSON.parse(localStorage.getItem('books'));
+    books.forEach((book, index) => {
+        if (book.id === id) {
+            books[index].isComplete = false;
+        }
+    });
+    localStorage.setItem('books', JSON.stringify(books));
+    showBook();
+}
+
 
